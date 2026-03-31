@@ -1,0 +1,16 @@
+**/cache/
+**/__pycache__/
+**/trash/
+**/work_dir/
+**/.ipynb_checkpoints/
+**/exp/
+**/.vscode/
+
+**trash**
+
+*.log
+*.pid
+*.png
+*.jpg
+*.webp
+
