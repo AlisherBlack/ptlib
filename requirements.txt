@@ -1,0 +1,28 @@
+open3d
+# fast_pytorch_kmeans
+psutil
+numpy==1.26.4
+huggingface_hub
+timm
+# torch-scatter
+# spconv-cu126
+
+# Debugging / logging
+ipdb
+loguru
+
+# Training frameworks
+mmengine==0.10.7
+hydra-core==1.3.2
+pytorch_lightning==2.5.6
+torch==2.5.0
+
+# Experiment tracking / fine-tuning
+wandb
+tensorboardX
+peft==0.18.1
+
+
+# vis
+matplotlib==3.9.2
+open3d==0.19.0
