@@ -1,7 +1,5 @@
 set -eu
 
-# v1 — старый
-# v2 — как на слайдах
 exp_dir="work_dir/s3dis-pointnet-v2"
 rm -rf $exp_dir
 
@@ -12,13 +10,6 @@ NUM_NODES=1
 MASTER_PORT=29500
 
 export PYTHONPATH=$(pwd)
-
-# Launch with torchrun for DDP
-# torchrun \
-#     --standalone \
-#     --nnodes=$NUM_NODES \
-#     --nproc_per_node=$NUM_GPUS \
-#     --master_port=$MASTER_PORT \
 
 
 python scripts/train.py \

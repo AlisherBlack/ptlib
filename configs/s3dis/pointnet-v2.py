@@ -24,7 +24,7 @@ class_names = [
 
 model = dict(
     _target_="ptlib.models.pointnet.pointnet_sem_seg.LitPointNet",
-    _recursive_=False,  # чтобы optim_cfg инициализровался в нужном месте
+    _recursive_=False,  # so that optim_cfg is instantiated in the right place
     in_channels=9,  # coord(3) + color(3) + normal(3)
     num_classes=num_classes,
     use_batch_norm=True,
@@ -113,10 +113,6 @@ data = dict(
                 sigma=0.005,
                 clip=0.02,
             ),
-            # dict(
-            #     _target_="ptlib.datasets.transform.ElasticDistortion",
-            #     distortion_params=[[0.2, 0.4], [0.8, 1.6]],
-            # ), # тяжелая
             dict(
                 _target_="ptlib.datasets.transform.ChromaticAutoContrast",
                 p=0.2,
@@ -138,17 +134,17 @@ data = dict(
                 hash_type="fnv",
                 mode="train",
                 return_grid_coord=True,
-            ),  # тяжелая
+            ),  # expensive  for cpu
             dict(
                 _target_="ptlib.datasets.transform.SphereCrop",
                 sample_rate=0.6,
                 mode="random",
-            ),  # тяжелая
+            ),  # expensive  for cpu
             dict(
                 _target_="ptlib.datasets.transform.SphereCrop",
                 point_max=204800,
                 mode="random",
-            ),  # тяжелая
+            ),  # expensive  for cpu
             dict(_target_="ptlib.datasets.transform.CenterShift", apply_z=False),
             dict(_target_="ptlib.datasets.transform.NormalizeColor"),
             dict(_target_="ptlib.datasets.transform.ToTensor"),
@@ -156,7 +152,7 @@ data = dict(
                 _target_="ptlib.datasets.transform.Collect",
                 keys=(
                     "coord",
-                    "grid_coord",  # добавить, если буду использовать grid_coord
+                    "grid_coord",  # add if grid_coord is used
                     "segment",
                 ),
                 feat_keys=("coord", "color", "normal"),
@@ -175,12 +171,12 @@ data = dict(
                 _target_="ptlib.datasets.transform.SphereCrop",
                 sample_rate=0.6,
                 mode="random",
-            ),  # кроп до GridSample, чтобы inverse был корректен
+            ),  # crop before GridSample so that inverse is correct
             dict(
                 _target_="ptlib.datasets.transform.SphereCrop",
                 point_max=204800,
                 mode="random",
-            ),  # кроп до GridSample, чтобы inverse был корректен
+            ),  # crop before GridSample so that inverse is correct
             dict(
                 _target_="ptlib.datasets.transform.Copy",
                 keys_dict={"segment": "origin_segment"},
@@ -394,11 +390,6 @@ data = dict(
 monitor = "val_CE"
 monitor_mode = "min"
 
-"""
-TODO:
-1. add SemSegEvaluator
-1. add PreciseEvaluator
-"""
 callbacks = [
     dict(
         _target_="pytorch_lightning.callbacks.ModelCheckpoint",
