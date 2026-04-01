@@ -218,12 +218,6 @@ class SemSegTester:
 
 
 def get_parser():
-    """
-    TODO:
-    1. create scripts/common_cli.py
-    2. out commmon args for train/test into scripts/common_cli.py
-    3. add change_cfg_by_args like in train.py
-    """
     parser = argparse.ArgumentParser(description="Precise Evaluation (SemSeg)")
     parser.add_argument("--config", type=str, required=True, help="Path to config file")
     parser.add_argument(

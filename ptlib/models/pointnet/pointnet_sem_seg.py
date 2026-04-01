@@ -233,7 +233,3 @@ class LitPointNet(pl.LightningModule):
         return optimizer
 
 
-if __name__ == "__main__":
-    model = PointNet(13)
-    xyz = torch.rand(12, 9, 2048)
-    print(model(xyz).shape)

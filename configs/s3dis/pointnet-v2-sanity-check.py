@@ -24,7 +24,7 @@ class_names = [
 
 model = dict(
     _target_="ptlib.models.pointnet.pointnet_sem_seg.LitPointNet",
-    _recursive_=False,  # чтобы optim_cfg инициализровался в нужном месте
+    _recursive_=False,  # so that optim_cfg is instantiated in the right place
     in_channels=9,  # coord(3) + color(3) + normal(3)
     num_classes=num_classes,
     use_batch_norm=False,  # BN is unstable with batch_size=1 sanity check
@@ -154,64 +154,13 @@ data = dict(
                 ),
             ],
             aug_transform=[
-                # [
-                #     dict(
-                #         _target_="ptlib.datasets.transform.RandomScale",
-                #         scale=[0.9, 0.9],
-                #     )
-                # ],
-                # [
-                #     dict(
-                #         _target_="ptlib.datasets.transform.RandomScale",
-                #         scale=[0.95, 0.95],
-                #     )
-                # ],
-                # [dict(_target_="ptlib.datasets.transform.RandomScale", scale=[1, 1])],
-                # [
-                #     dict(
-                #         _target_="ptlib.datasets.transform.RandomScale",
-                #         scale=[1.05, 1.05],
-                #     )
-                # ],
-                # [
-                #     dict(
-                #         _target_="ptlib.datasets.transform.RandomScale",
-                #         scale=[1.1, 1.1],
-                #     )
-                # ],
-                # [
-                #     dict(
-                #         _target_="ptlib.datasets.transform.RandomScale",
-                #         scale=[0.9, 0.9],
-                #     ),
-                #     dict(_target_="ptlib.datasets.transform.RandomFlip", p=1),
-                # ],
-                # [
-                #     dict(
-                #         _target_="ptlib.datasets.transform.RandomScale",
-                #         scale=[0.95, 0.95],
-                #     ),
-                #     dict(_target_="ptlib.datasets.transform.RandomFlip", p=1),
-                # ],
-                # [
-                #     dict(_target_="ptlib.datasets.transform.RandomScale", scale=[1, 1]),
-                #     dict(_target_="ptlib.datasets.transform.RandomFlip", p=1),
-                # ],
-                # [
-                #     dict(
-                #         _target_="ptlib.datasets.transform.RandomScale",
-                #         scale=[1.05, 1.05],
-                #     ),
-                #     dict(_target_="ptlib.datasets.transform.RandomFlip", p=1),
-                # ],
-                # [
-                #     dict(
-                #         _target_="ptlib.datasets.transform.RandomScale",
-                #         scale=[1.1, 1.1],
-                #     ),
-                #     dict(_target_="ptlib.datasets.transform.RandomFlip", p=1),
-                # ],
-            ],
+                                [
+                    dict(
+                        _target_="ptlib.datasets.transform.RandomScale",
+                        scale=[0.9, 0.9],
+                    )
+                ],
+                ], 
         ),
     ),
 )
@@ -220,11 +169,6 @@ data = dict(
 monitor = "val_CE"
 monitor_mode = "min"
 
-"""
-TODO:
-1. add SemSegEvaluator
-1. add PreciseEvaluator
-"""
 callbacks = [
     dict(
         _target_="pytorch_lightning.callbacks.ModelCheckpoint",
